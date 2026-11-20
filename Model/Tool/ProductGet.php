@@ -107,7 +107,7 @@ class ProductGet implements ToolInterface
             }
         }
         $visibility = Visibility::getOptionArray();
-        $short = trim(html_entity_decode(strip_tags((string)$product->getData('short_description'))));
+        $short = trim(html_entity_decode(strip_tags((string)$product->getData('short_description')), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8'));
 
         return [
             'id' => (int)$product->getId(),
