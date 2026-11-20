@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mbmcp_audit" resource="default" engine="innodb" comment="MageBooster AI connector: every tool call">
+        <column xsi:type="bigint" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <column xsi:type="varchar" name="request_id" length="64" nullable="true"/>
+        <column xsi:type="varchar" name="client" length="64" nullable="true" comment="claude, chatgpt, ..."/>
+        <column xsi:type="varchar" name="tool" length="64" nullable="false"/>
+        <column xsi:type="varchar" name="role" length="16" nullable="false"/>
+        <column xsi:type="text" name="args" nullable="true" comment="JSON, personal data removed"/>
+        <column xsi:type="varchar" name="status" length="16" nullable="false" comment="ok, denied, error"/>
+        <column xsi:type="int" name="items" unsigned="true" nullable="false" default="0"/>
+        <column xsi:type="int" name="ms" unsigned="true" nullable="false" default="0"/>
+        <column xsi:type="varchar" name="message" length="255" nullable="true"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="MBMCP_AUDIT_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+</schema>

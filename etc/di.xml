@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="MageBooster\Mcp\Model\ToolPool">
+        <arguments>
+            <argument name="tools" xsi:type="array">
+                <item name="store_info" xsi:type="object">MageBooster\Mcp\Model\Tool\StoreInfo</item>
+                <item name="products_search" xsi:type="object">MageBooster\Mcp\Model\Tool\ProductsSearch</item>
+                <item name="product_get" xsi:type="object">MageBooster\Mcp\Model\Tool\ProductGet</item>
+                <item name="categories_tree" xsi:type="object">MageBooster\Mcp\Model\Tool\CategoriesTree</item>
+                <item name="orders_list" xsi:type="object">MageBooster\Mcp\Model\Tool\OrdersList</item>
+                <item name="sales_summary" xsi:type="object">MageBooster\Mcp\Model\Tool\SalesSummary</item>
+                <item name="abandoned_carts" xsi:type="object">MageBooster\Mcp\Model\Tool\AbandonedCarts</item>
+                <item name="maintenance_status" xsi:type="object">MageBooster\Mcp\Model\Tool\MaintenanceStatus</item>
+                <!-- Write tools come in step 2 (preview + undo); until then they only answer the role check. -->
+                <item name="products_update" xsi:type="object">MageBooster\Mcp\Model\Tool\PlannedProductsUpdate</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MageBooster\Mcp\Model\Tool\PlannedProductsUpdate" type="MageBooster\Mcp\Model\Tool\Planned">
+        <arguments>
+            <argument name="name" xsi:type="string">products_update</argument>
+            <argument name="minRole" xsi:type="string">editor</argument>
+        </arguments>
+    </virtualType>
+    <!-- Tools are built only when a call comes in. -->
+    <type name="MageBooster\Mcp\Controller\Agent\Call">
+        <arguments>
+            <argument name="toolPool" xsi:type="object">MageBooster\Mcp\Model\ToolPool\Proxy</argument>
+        </arguments>
+    </type>
+</config>

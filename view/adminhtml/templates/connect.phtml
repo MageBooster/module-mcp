@@ -1,0 +1,39 @@
+<?php
+/** @var \MageBooster\Mcp\Block\Adminhtml\Connect $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$roles = $block->getRoles();
+$help = [
+    'read' => __('Questions and reports. Nothing in the store changes.'),
+    'editor' => __('Also products, prices, stock and categories. Every change is shown before it is made.'),
+    'full' => __('Also theme, checkout and store settings.'),
+];
+?>
+<form class="mbmcp-connect" method="post" action="<?= $escaper->escapeUrl($block->getPostUrl()) ?>">
+    <?= $block->getBlockHtml('formkey') ?>
+    <h2><?= $escaper->escapeHtml(__('Claude or ChatGPT wants to work in %1', $block->getStoreName())) ?></h2>
+    <p><?= $escaper->escapeHtml(__('The connection runs through mcp.magebooster.com. It passes your requests to this store and keeps no copy of store data.')) ?></p>
+    <fieldset>
+        <legend><?= $escaper->escapeHtml(__('Access')) ?></legend>
+        <?php foreach ($roles as $role => $label): ?>
+            <label class="mbmcp-role">
+                <input type="radio" name="role" value="<?= $escaper->escapeHtmlAttr($role) ?>"<?= $role === 'read' ? ' checked' : '' ?>>
+                <strong><?= $escaper->escapeHtml($label) ?></strong>
+                <span><?= $escaper->escapeHtml($help[$role] ?? '') ?></span>
+            </label>
+        <?php endforeach ?>
+    </fieldset>
+    <p class="mbmcp-note"><?= $escaper->escapeHtml(__('You can cut the connection at any time by changing the connection key in Stores › Configuration › MageBooster › AI connector.')) ?></p>
+    <div class="mbmcp-actions">
+        <button type="submit" name="decision" value="approve" class="action-primary"><?= $escaper->escapeHtml(__('Approve')) ?></button>
+        <button type="submit" name="decision" value="cancel" class="action-secondary"><?= $escaper->escapeHtml(__('Cancel')) ?></button>
+    </div>
+</form>
+<style>
+    .mbmcp-connect{max-width:640px}
+    .mbmcp-connect fieldset{border:0;padding:0;margin:24px 0;display:grid;gap:12px}
+    .mbmcp-connect legend{font-weight:600;margin-bottom:8px}
+    .mbmcp-role{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;padding:12px 14px;border:1px solid #d6d6d6;border-radius:6px;cursor:pointer}
+    .mbmcp-role span{grid-column:2;color:#555}
+    .mbmcp-note{color:#555}
+    .mbmcp-actions{display:flex;gap:12px;margin-top:20px}
+</style>

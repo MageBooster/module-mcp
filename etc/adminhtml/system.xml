@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magebooster" translate="label" sortOrder="90">
+            <label>MageBooster</label>
+        </tab>
+        <section id="magebooster_mcp" translate="label" sortOrder="30" showInDefault="1">
+            <label>AI connector (Claude, ChatGPT)</label>
+            <tab>magebooster</tab>
+            <resource>MageBooster_Mcp::config</resource>
+            <group id="general" translate="label comment" sortOrder="10" showInDefault="1">
+                <label>MageBooster AI connector</label>
+                <comment>Lets Claude or ChatGPT work in this store through mcp.magebooster.com. Off until you switch it on.</comment>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="max_role" translate="label comment" type="select" sortOrder="20" showInDefault="1">
+                    <label>Highest access</label>
+                    <source_model>MageBooster\Mcp\Model\Config\Source\Role</source_model>
+                    <comment>The AI never gets more than this, whatever its connection allows. Read only: questions and reports. Editor: products, prices, stock and categories. Full: also theme, checkout and store settings.</comment>
+                </field>
+                <field id="secret" translate="label comment" type="obscure" sortOrder="30" showInDefault="1">
+                    <label>Connection key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <comment>Given by mcp.magebooster.com when you connect this store. Change it to cut every connection at once.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

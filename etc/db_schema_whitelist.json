@@ -1,0 +1,23 @@
+{
+    "mbmcp_audit": {
+        "column": {
+            "entity_id": true,
+            "created_at": true,
+            "request_id": true,
+            "client": true,
+            "tool": true,
+            "role": true,
+            "args": true,
+            "status": true,
+            "items": true,
+            "ms": true,
+            "message": true
+        },
+        "index": {
+            "MBMCP_AUDIT_CREATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
