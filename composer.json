@@ -2,7 +2,29 @@
     "name": "magebooster/module-mcp",
     "description": "MageBooster MCP: lets AI agents (Model Context Protocol) read store data through signed, role-limited tools, with an audit log and PII masking.",
     "type": "magento2-module",
+    "keywords": [
+        "magento2",
+        "magento-2-module",
+        "hyva",
+        "luma",
+        "mcp",
+        "model-context-protocol",
+        "ai",
+        "claude",
+        "chatgpt"
+    ],
+    "homepage": "https://magebooster.com",
     "license": "proprietary",
+    "authors": [
+        {
+            "name": "WebWorks 101 OÜ",
+            "homepage": "https://magebooster.com"
+        }
+    ],
+    "support": {
+        "email": "info@magebooster.com",
+        "docs": "https://github.com/MageBooster/module-mcp/blob/main/docs/HOWTO.en.md"
+    },
     "require": {
         "php": ">=8.0",
         "ext-json": "*",
