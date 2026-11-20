@@ -1,0 +1,11 @@
+MageBooster commercial licence
+
+Copyright (c) 2026 WebWorks 101 OÜ, MageBooster. All rights reserved.
+
+Use requires a valid serial per production domain; no redistribution.
+
+You may install and change this software only for the production domain(s) covered by your
+MageBooster serial number, plus their staging and development copies. You may not sell, share,
+publish or otherwise redistribute it, in source or compiled form. The software is provided
+"as is", without warranty of any kind; to the extent the law allows, WebWorks 101 OÜ is not
+liable for any damage arising from its use.
