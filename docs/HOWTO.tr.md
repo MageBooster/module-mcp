@@ -96,7 +96,7 @@ Bir bağlantı daha fazlasını istese bile belirlediğiniz en yüksek düzeyi a
 
 `auth.json` dosyasını sürüm kontrolüne (git) eklemeyin.
 
-**Seri numarası:** Bu sürümde seri numarası yalnızca paketi indirmek için kullanılır. Modül mağaza içinde seri numarası kontrolü yapmaz. Lisanslar sayfasında da bunun için bir alan yoktur.
+**Seri numarası:** Seri numarası hem paketi indirmek için kullanılır hem de mağaza içinde kontrol edilir. Ayrıntılar aşağıdaki Lisans kontrolü bölümünde.
 
 ## Zip dosyasıyla kurulum
 
@@ -201,6 +201,18 @@ Reports modülü bu modüle bağımlıdır. Kuruluysa önce Reports'u kaldırın
    ```
 
 `mbmcp_audit` tablosu veritabanında kalır. Kayıtlara ihtiyacınız yoksa silebilirsiniz.
+
+## Lisans kontrolü (seri numarası)
+
+- Seri numarasını **Stores > Configuration > MageBooster > Licenses** sayfasındaki **MageBooster AI connector (MCP)** alanına girin (Hyvä sürümü: **MageBooster AI connector (MCP) (Hyvä edition)**). Seri numarası `MB1` ile başlar.
+- Aynı sayfadaki **License status** tablosu her modülün durumunu gösterir: **Etkin**, **Ek süre** veya **Kapalı**. `bin/magento magebooster:license:status` komutu da aynı bilgiyi verir.
+- Geçerli bir seri numarası yoksa (hiç girilmemiş, geçersiz, süresi dolmuş, başka bir alan adı ya da başka bir ürün için) modül **30 gün** çalışmaya devam eder.
+  - 30 gün, mağaza modülü geçerli seri numarası olmadan ilk gördüğü anda başlar.
+  - Geçerli bir seri numarası girilince ek süre biter. Bu seri numarası sonradan geçersiz olursa (örneğin süresi dolarsa) yeni bir 30 günlük süre başlar.
+- Ek süre boyunca ve sonrasında her yönetim paneli sayfasında kapatılamayan bir bildirim görünür. Bildirimde modülün adı, nedeni, kalan gün sayısı ya da kapandığı tarih yazar. Lisanslar sayfasına ve https://store.magebooster.com/licences/account/ adresindeki seri numaralarınıza bağlantı verir.
+- Müşteriler mağazada hiçbir lisans mesajı görmez. Kontrol mağazanın içinde yapılır, MageBooster'a hiçbir bilgi gönderilmez.
+- Geliştirme adresleri (`localhost`, `127.0.0.1`, `*.localhost`, `*.test`, `*.local`) alan adı kontrolüne takılmaz.
+- **30 gün dolunca:** mağazanın yapay zeka bağlantı noktası her isteğe `license_required` (HTTP 403) yanıtı verir; Claude ya da ChatGPT açık bir "lisans gerekir" yanıtı alır. Yönetim panelinde yeni bağlantı onaylanamaz. Ayarlar ve işlem kaydı silinmez.
 
 ## Lisans ve kopyalama
 

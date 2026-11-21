@@ -39,4 +39,17 @@
             <argument name="toolPool" xsi:type="object">MageBooster\Mcp\Model\ToolPool\Proxy</argument>
         </arguments>
     </type>
+    <type name="MageBooster\License\Model\Products">
+        <arguments>
+            <argument name="products" xsi:type="array">
+                <item name="mcp" xsi:type="array">
+                    <item name="label" xsi:type="string">MageBooster AI connector (MCP)</item>
+                    <item name="codes" xsi:type="array">
+                        <item name="mcp" xsi:type="string">mcp</item>
+                        <item name="mcp-hyva" xsi:type="string">mcp-hyva</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
 </config>

@@ -19,6 +19,7 @@
             <module name="Magento_Quote"/>
             <module name="Magento_Indexer"/>
             <module name="Magento_Cron"/>
+            <module name="MageBooster_License"/>
         </sequence>
     </module>
 </config>

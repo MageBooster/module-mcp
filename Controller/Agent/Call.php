@@ -81,6 +81,10 @@ class Call implements HttpPostActionInterface, CsrfAwareActionInterface
             $this->audit->write(Audit::DENIED, 'auth', '-', [], null, null, 0, $this->ms($started), $e->getErrorCode());
             return $this->fail($e->getHttpCode(), $e->getErrorCode(), $e->getMessage());
         }
+        if (!$this->config->isLicensed()) {
+            $this->audit->write(Audit::DENIED, 'license', '-', [], null, null, 0, $this->ms($started), 'license_required');
+            return $this->fail(403, 'license_required', $this->config->licenseMessage());
+        }
 
         $data = json_decode($body, true);
         if (!is_array($data)) {

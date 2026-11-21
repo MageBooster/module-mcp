@@ -14,17 +14,44 @@ declare(strict_types=1);
 
 namespace MageBooster\Mcp\Model;
 
+use MageBooster\License\Api\LicenseInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Encryption\EncryptorInterface;
 
 class Config
 {
+    public const LICENSE_CODE = 'mcp';
+
     private const PATH = 'magebooster_mcp/general/';
+
+    private ?bool $licensed = null;
 
     public function __construct(
         private ScopeConfigInterface $scopeConfig,
-        private EncryptorInterface $encryptor
+        private EncryptorInterface $encryptor,
+        private LicenseInterface $license
     ) {
+    }
+
+    /**
+     * Valid serial, or still inside the 30-day grace period of MageBooster_License. Without it the agent
+     * endpoint and the connect page answer "license required"; settings and the audit log are kept.
+     */
+    public function isLicensed(): bool
+    {
+        if ($this->licensed === null) {
+            try {
+                $this->licensed = $this->license->isActive(self::LICENSE_CODE);
+            } catch (\Throwable $e) {
+                $this->licensed = false;
+            }
+        }
+        return $this->licensed;
+    }
+
+    public function licenseMessage(): string
+    {
+        return (string)__('The MageBooster AI connector needs a license. Enter your serial number in Stores > Configuration > MageBooster > Licenses.');
     }
 
     public function isEnabled(): bool

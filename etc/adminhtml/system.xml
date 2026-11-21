@@ -12,6 +12,18 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
+        <section id="magebooster_license">
+            <group id="serials">
+                <field id="mcp" translate="label comment" type="text" sortOrder="40" showInDefault="1">
+                    <label>MageBooster AI connector (MCP)</label>
+                    <comment>Serial number, starts with MB1.</comment>
+                </field>
+                <field id="mcp_hyva" translate="label comment" type="text" sortOrder="41" showInDefault="1">
+                    <label>MageBooster AI connector (MCP) (Hyvä edition)</label>
+                    <comment>Only if you bought the Hyvä edition: serial number, starts with MB1.</comment>
+                </field>
+            </group>
+        </section>
         <tab id="magebooster" translate="label" sortOrder="90">
             <label>MageBooster</label>
         </tab>

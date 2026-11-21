@@ -96,7 +96,7 @@ The two editions are sold separately. The module runs on the server and in the a
 
 Keep `auth.json` out of version control.
 
-**About the serial number:** in this version, the serial is used to download the package. The module does not check a serial inside the store, and the Licenses page has no field for it.
+**About the serial number:** the serial is used to download the package and is checked inside the store. See Licence check below.
 
 ## Install from a zip file
 
@@ -201,6 +201,18 @@ To add your own tools, register them in the module's tool pool through `di.xml`.
 The Reports module depends on this module, so remove Reports first.
 
 The `mbmcp_audit` table stays in the database. Drop it if you no longer need the log.
+
+## Licence check (serial number)
+
+- Enter the serial in **Stores > Configuration > MageBooster > Licenses**, field **MageBooster AI connector (MCP)** (Hyvä edition: **MageBooster AI connector (MCP) (Hyvä edition)**). The serial starts with `MB1`.
+- The **License status** table on that page shows each module as **Active**, **Grace period** or **Switched off**. `bin/magento magebooster:license:status` shows the same.
+- Without a valid serial (none entered, not valid, expired, another domain or another product) the module keeps working for **30 days**.
+  - The 30 days start the first time the store sees the module without a valid serial.
+  - A valid serial ends the grace period. If that serial later stops being valid (for example it expires), a new 30-day period starts.
+- During and after the grace period, every admin page shows a notice that cannot be closed. It names the module, the reason, and the days left or the date it was switched off, with links to the Licenses page and to your serial numbers at https://store.magebooster.com/licences/account/.
+- Shoppers never see a licence message, and the check runs inside your store: nothing is sent to MageBooster.
+- Development hosts (`localhost`, `127.0.0.1`, `*.localhost`, `*.test`, `*.local`) always pass the domain check.
+- **After the 30 days:** the store's AI connector endpoint answers every request with `license_required` (HTTP 403), so Claude or ChatGPT get a clear "license required" reply, and new connections cannot be approved in the admin. Settings and the audit log are kept.
 
 ## Licence & copying
 

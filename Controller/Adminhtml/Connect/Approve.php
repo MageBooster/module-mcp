@@ -56,6 +56,10 @@ class Approve extends Action implements HttpGetActionInterface, HttpPostActionIn
             $this->messageManager->addErrorMessage(__('This connection request has expired. Start again from Claude or ChatGPT.'));
             return $this->resultRedirectFactory->create()->setPath('adminhtml/dashboard');
         }
+        if (!$this->config->isLicensed()) {
+            $this->messageManager->addErrorMessage($this->config->licenseMessage());
+            return $this->resultRedirectFactory->create()->setPath('adminhtml/system_config/edit', ['section' => 'magebooster_license']);
+        }
 
         if (!$this->getRequest()->isPost()) {
             $page = $this->pageFactory->create();
